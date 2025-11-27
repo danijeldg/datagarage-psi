@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Clash Grotesk Font Family */
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('./assets/fonts/ClashGrotesk-Variable.woff2') format('woff2'),
+    url('./assets/fonts/ClashGrotesk-Variable.woff') format('woff');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Fallback font faces for better browser support */
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('./assets/fonts/ClashGrotesk-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('./assets/fonts/ClashGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('./assets/fonts/ClashGrotesk-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('./assets/fonts/ClashGrotesk-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    /* Typography Variables */
+    --Typography-font-family-primary: "Clash Grotesk";
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply min-w-[320px] min-h-screen bg-gradient-to-b from-dark to-dark-secondary text-white overflow-x-hidden;
+  }
+
+  #app {
+    @apply w-full min-h-screen;
+  }
+}
+
+@layer components {
+  /* Typography Styles */
+
+  /* Headline - Large titles and headers */
+  .text-headline {
+    font-family: var(--Typography-font-family-primary, "Clash Grotesk");
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    /* 140% */
+  }
+
+  /* Subheadline - Secondary headers */
+  .text-subheadline {
+    font-family: var(--Typography-font-family-primary, "Clash Grotesk");
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 133.333% */
+  }
+
+  /* Callout - Important text */
+  .text-callout {
+    font-family: var(--Typography-font-family-primary, "Clash Grotesk");
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    /* 142.857% */
+  }
+
+  /* Caption - Small descriptive text */
+  .text-caption {
+    font-family: "Clash Grotesk";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    /* 133.333% */
+    letter-spacing: 0.24px;
+  }
+
+  /* Label - Tiny labels and tags */
+  .text-label {
+    font-family: "Clash Grotesk";
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+    /* 145.455% */
+    letter-spacing: 0.22px;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    @apply rounded-xl border-none px-6 py-3 font-semibold bg-purple text-white cursor-pointer transition-all duration-300;
+    @apply hover:scale-105 active:scale-98;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 20px rgba(131, 123, 217, 0.4);
+  }
+}
+
+@layer utilities {
+  .inset-glow-purple {
+    @apply bg-purple;
+    box-shadow: inset 0 1px 4px 0 #C5CAF5, inset 0 -2px 2px 0 #400CED;
+    -webkit-box-shadow: inset 0 1px 4px 0 #C5CAF5, inset 0 -2px 2px 0 #400CED;
+    -moz-box-shadow: inset 0 1px 4px 0 #C5CAF5, inset 0 -2px 2px 0 #400CED;
+  }
+
+  .icon-glow-blue {
+    filter: drop-shadow(0 0 4px #a3f1fe);
+  }
+
+  .icon-glow-purple {
+    filter: drop-shadow(0 0 4px #837bd9);
+  }
+
+  .line-shadow-blue {
+    box-shadow: 0px -2px 4px 0px #a3f1fe;
+    -webkit-box-shadow: 0px -2px 4px 0px #a3f1fe;
+    -moz-box-shadow: 0px -2px 4px 0px #a3f1fe;
+  }
+
+  .glass-border {
+    position: relative;
+  }
+
+  .glass-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+
+}
