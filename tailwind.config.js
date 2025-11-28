@@ -2,6 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     extend: {
       fontFamily: {
         sans: ["Clash Grotesk", "ui-sans-serif", "system-ui", "sans-serif"],

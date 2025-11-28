@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen flex flex-col bg-gradient-to-b from-dark to-dark-secondary"
+    class="min-h-screen max-w-screen overflow-hidden flex flex-col bg-gradient-to-b from-dark to-dark-secondary"
   >
     <AppHeader />
 
