@@ -1,53 +1,50 @@
 <template>
   <div
-    class="relative min-h-[316px] -mt-4 flex items-center justify-center"
+    class="relative min-h-[316px] -mt-4 w-full flex items-center justify-center"
     :class="
       theme === 'light' ? 'bg-custom-color-light' : 'bg-custom-color-dark'
     "
+    :attr="attr"
   >
-    <div class="py-[52px]">
-      <div class="container grid grid-cols-3 gap-[18px] items-end">
-        <div
+    <div class="py-[52px] container">
+      <h2
+        class="text-2xl font-bold text-white"
+        :class="calculateIsHighlighted() ? 'mb-12' : 'mb-6'"
+      >
+        {{ title }}
+      </h2>
+      <!-- Achievements layout - 4.5 itema u redu -->
+      <div
+        v-if="type === 'achievements'"
+        class="flex gap-[18px] overflow-x-auto no-scrollbar"
+      >
+        <ItemCard
           v-for="(item, index) in items"
           :key="item.id"
-          class="item-card p-2 flex flex-col items-center gap-1.5 relative"
-          :class="[
-            index === 1
-              ? '!rounded-full !aspect-square justify-end'
-              : 'rounded-2xl',
-            getRarityClass(item.rarity),
-          ]"
-        >
-          <!-- Title -->
-          <div class="text-center">
-            <h3 class="text-caption text-center w-full">
-              {{ item.title }}
-            </h3>
+          :item="item"
+          :is-highlighted="calculateIsHighlighted(index)"
+          :type="type"
+        />
+      </div>
 
-            <!-- Level -->
-            <p v-if="index !== 1" class="text-label uppercase text-white/60">
-              Level {{ item.level }}
-            </p>
-          </div>
-
-          <!-- Icon -->
-          <div :class="index === 1 ? 'absolute -top-8' : ''">
-            <Icon :name="item.icon" :size="index !== 1 ? 48 : 96" />
-          </div>
-
-          <!-- Rarity Badge -->
-          <div :class="[index === 1 ? 'absolute -bottom-4' : '']">
-            <RarityChip :rarity="item.rarity" />
-          </div>
-        </div>
+      <!-- Ostali tipovi - 3 kolone grid -->
+      <div v-else class="container grid grid-cols-3 gap-[18px] items-end">
+        <ItemCard
+          v-for="(item, index) in items"
+          :key="item.id"
+          :item="item"
+          :is-highlighted="calculateIsHighlighted(index)"
+          :type="type"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Icon, { type IconName } from "./Icon.vue";
-import RarityChip, { type Rarity } from "./RarityChip.vue";
+import ItemCard from "./ItemCard.vue";
+import { type IconName } from "./Icon.vue";
+import { type Rarity } from "./RarityChip.vue";
 
 export type { Rarity };
 
@@ -56,16 +53,18 @@ export interface Item {
   title: string;
   level: number | string;
   icon: IconName;
-  rarity: Rarity;
+  rarity?: Rarity; // Optional for items like chests
 }
 
 interface Props {
+  title?: string;
   items?: Item[];
   theme: "light" | "dark";
   type: "recent-items" | "eggs" | "challenges" | "achievements" | "chests";
+  attr?: string;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   theme: "light",
   items: () => [
     {
@@ -92,14 +91,13 @@ withDefaults(defineProps<Props>(), {
   ],
 });
 
-const getRarityClass = (rarity: Rarity): string => {
-  const rarityClasses: Record<Rarity, string> = {
-    common: "rarity-common",
-    limited: "rarity-limited",
-    rare: "rarity-rare",
-    legendary: "rarity-legendary",
-  };
-  return rarityClasses[rarity];
+const calculateIsHighlighted = (index?: number): boolean => {
+  // If type is "eggs" or "chests", all items are highlighted
+  if (props.type === "eggs" || props.type === "chests") {
+    return true;
+  }
+  // For other types, only the middle element (index 1) is highlighted
+  return index === 1;
 };
 </script>
 
@@ -107,7 +105,6 @@ const getRarityClass = (rarity: Rarity): string => {
 .bg-custom-color-light {
   background: url("../assets/images/ellipse-bg-light.svg") no-repeat center
     center / 100% 100%;
-  z-index: 1;
 }
 
 .bg-custom-color-dark {
@@ -115,57 +112,12 @@ const getRarityClass = (rarity: Rarity): string => {
     center / 100% 100%;
 }
 
-.item-card {
-  border-radius: 16px;
-  border: 1px solid #3e1c4c;
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 0.3s ease;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.item-card:active {
-  transform: scale(0.95);
-}
-
-/* Rarity specific styles */
-.rarity-common {
-  border-color: rgba(158, 158, 158, 0.3);
-}
-
-.rarity-common:active {
-  box-shadow: 0 4px 16px rgba(158, 158, 158, 0.2);
-}
-
-.rarity-uncommon {
-  border-color: rgba(30, 255, 0, 0.3);
-}
-
-.rarity-uncommon:active {
-  box-shadow: 0 4px 16px rgba(30, 255, 0, 0.2);
-}
-
-.rarity-rare {
-  border: 1px solid #20529f;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.rarity-epic {
-  border-color: rgba(163, 53, 238, 0.4);
-}
-
-.rarity-epic:active {
-  box-shadow: 0 4px 16px rgba(163, 53, 238, 0.3);
-}
-
-.rarity-legendary {
-  border-color: rgba(255, 128, 0, 0.5);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 128, 0, 0.05) 0%,
-    rgba(22, 17, 48, 0.6) 100%
-  );
-}
-
-.rarity-legendary:active {
-  box-shadow: 0 4px 20px rgba(255, 128, 0, 0.4);
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>

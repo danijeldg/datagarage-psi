@@ -19,6 +19,19 @@ import notificationElipseIcon from "../assets/icons/notification-elipse.svg?raw"
 import chewyBarIcon from "../assets/icons/chewy-bar.svg?raw";
 import liquidMixIcon from "../assets/icons/liquid-mix.svg?raw";
 import pepsiHatIcon from "../assets/icons/pepsi-hat.svg?raw";
+import eggYellowIcon from "../assets/icons/egg-yellow.svg?raw";
+import eggDragonSkinIcon from "../assets/icons/egg-dragon-skin.svg?raw";
+import eggBlueRedIcon from "../assets/icons/egg-blue-red.svg?raw";
+import pepsiChallengeIcon from "../assets/icons/pepsi-challenge.svg?raw";
+import doritosChallengeIcon from "../assets/icons/doritos-challenge.svg?raw";
+import mtnDewChallengeIcon from "../assets/icons/mtn-dew-challenge.svg?raw";
+import pepsiAchievementIcon from "../assets/icons/achievements/pepsi.svg?raw";
+import doritosAchievementIcon from "../assets/icons/achievements/doritos.svg?raw";
+import cheetosAchievementIcon from "../assets/icons/achievements/cheetos.svg?raw";
+import mtnDewAchievementIcon from "../assets/icons/achievements/mtn-dew.svg?raw";
+import chest1Icon from "../assets/icons/chests/chest-1.svg?raw";
+import chest2Icon from "../assets/icons/chests/chest-2.svg?raw";
+import chest3Icon from "../assets/icons/chests/chest-3.svg?raw";
 
 // Disable automatic attribute inheritance so we can control where class goes
 defineOptions({
@@ -38,6 +51,19 @@ const icons: Record<string, string> = {
   "chewy-bar": chewyBarIcon,
   "liquid-mix": liquidMixIcon,
   "pepsi-hat": pepsiHatIcon,
+  "egg-yellow": eggYellowIcon,
+  "egg-dragon-skin": eggDragonSkinIcon,
+  "egg-blue-red": eggBlueRedIcon,
+  "pepsi-challenge": pepsiChallengeIcon,
+  "doritos-challenge": doritosChallengeIcon,
+  "mtn-dew-challenge": mtnDewChallengeIcon,
+  "pepsi-achievement": pepsiAchievementIcon,
+  "doritos-achievement": doritosAchievementIcon,
+  "cheetos-achievement": cheetosAchievementIcon,
+  "mtn-dew-achievement": mtnDewAchievementIcon,
+  "chest-1": chest1Icon,
+  "chest-2": chest2Icon,
+  "chest-3": chest3Icon,
 };
 
 export type IconName = keyof typeof icons;
@@ -63,10 +89,17 @@ const svgContent = computed(() => {
 
   // For gear and shirt icons, preserve original colors (blue and red)
   // For dna-3d, preserve original colors for 3D effect
+  // For egg icons, preserve original colors for the egg designs
+  // For challenge and achievement icons, preserve original colors
+  // For chest icons, preserve original colors
   if (
     props.name !== "gear" &&
     props.name !== "shirt" &&
-    props.name !== "dna-3d"
+    props.name !== "dna-3d" &&
+    !props.name.startsWith("egg-") &&
+    !props.name.endsWith("-challenge") &&
+    !props.name.endsWith("-achievement") &&
+    !props.name.startsWith("chest-")
   ) {
     // Replace hardcoded colors with currentColor
     svg = svg
