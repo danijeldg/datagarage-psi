@@ -11,7 +11,7 @@
     </div>
 
     <div class="pt-[69dvh] w-full">
-      <ActionButtons />
+      <ActionButtons @gearClick="handleGearClick" @dnaLabClick="handleDnaLabClick" />
       <ItemsSection
         theme="light"
         type="recent-items"
@@ -51,8 +51,19 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import ActionButtons from "../components/ActionButtons.vue";
 import ItemsSection, { type Item } from "../components/ItemsSection.vue";
+
+const router = useRouter();
+
+const handleGearClick = () => {
+  router.push({ name: "gear" });
+};
+
+const handleDnaLabClick = () => {
+  router.push({ name: "dna" });
+};
 
 // Egg items
 const eggItems: Item[] = [

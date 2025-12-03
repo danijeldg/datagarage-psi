@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import MainLayout from './layouts/MainLayout.vue'
-import HomePage from './views/HomePage.vue'
+
+const route = useRoute()
+
+// Pages that should not use MainLayout (no header/footer)
+const fullScreenPages = ['dna', 'gear']
+const useLayout = computed(() => !fullScreenPages.includes(route.name as string))
 </script>
 
 <template>
-  <MainLayout>
-    <HomePage />
+  <MainLayout v-if="useLayout">
+    <router-view />
   </MainLayout>
+  <router-view v-else />
 </template>

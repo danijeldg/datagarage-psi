@@ -1,9 +1,9 @@
 <template>
   <span
-    class="text-label px-2 py-0.5 rounded-full backdrop-blur-sm transition-all duration-200"
+    class="text-label px-2 py-0.5 rounded-full text-black backdrop-blur-sm transition-all duration-200"
     :class="rarity"
   >
-    {{ rarity }}
+    {{ rarity.charAt(0).toUpperCase() + rarity.slice(1) }}
   </span>
 </template>
 

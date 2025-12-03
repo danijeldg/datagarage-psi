@@ -32,6 +32,15 @@ import mtnDewAchievementIcon from "../assets/icons/achievements/mtn-dew.svg?raw"
 import chest1Icon from "../assets/icons/chests/chest-1.svg?raw";
 import chest2Icon from "../assets/icons/chests/chest-2.svg?raw";
 import chest3Icon from "../assets/icons/chests/chest-3.svg?raw";
+import calmIcon from "../assets/icons/tempers/calm.svg?raw";
+import hornsIcon from "../assets/icons/flares/horns.svg?raw";
+import magentaFurIcon from "../assets/icons/textures/magenta-fur.svg?raw";
+import characterLevel2Icon from "../assets/icons/character-levels/level-2.svg?raw";
+import doritosGlassesIcon from "../assets/icons/gears/doritos-glasses.svg?raw";
+import doritosChefsIcon from "../assets/icons/gears/doritos-chef's.svg?raw";
+import capnCrunchIcon from "../assets/icons/gears/cap'n-crunch.svg?raw";
+import cowboyHatIcon from "../assets/icons/gears/cawboy-hat.svg?raw";
+import gatoradeGamerCapIcon from "../assets/icons/gears/gatorade-gamer-cap.svg?raw";
 
 // Disable automatic attribute inheritance so we can control where class goes
 defineOptions({
@@ -64,6 +73,15 @@ const icons: Record<string, string> = {
   "chest-1": chest1Icon,
   "chest-2": chest2Icon,
   "chest-3": chest3Icon,
+  calm: calmIcon,
+  horns: hornsIcon,
+  "magenta-fur": magentaFurIcon,
+  "character-level-2": characterLevel2Icon,
+  "doritos-glasses": doritosGlassesIcon,
+  "doritos-chefs": doritosChefsIcon,
+  "capn-crunch": capnCrunchIcon,
+  "cowboy-hat": cowboyHatIcon,
+  "gatorade-gamer-cap": gatoradeGamerCapIcon,
 };
 
 export type IconName = keyof typeof icons;
@@ -92,6 +110,7 @@ const svgContent = computed(() => {
   // For egg icons, preserve original colors for the egg designs
   // For challenge and achievement icons, preserve original colors
   // For chest icons, preserve original colors
+  // For temper, flare, and texture icons, preserve original colors
   if (
     props.name !== "gear" &&
     props.name !== "shirt" &&
@@ -99,7 +118,14 @@ const svgContent = computed(() => {
     !props.name.startsWith("egg-") &&
     !props.name.endsWith("-challenge") &&
     !props.name.endsWith("-achievement") &&
-    !props.name.startsWith("chest-")
+    !props.name.startsWith("chest-") &&
+    props.name !== "calm" &&
+    props.name !== "horns" &&
+    props.name !== "magenta-fur" &&
+    !props.name.startsWith("doritos-") &&
+    props.name !== "capn-crunch" &&
+    props.name !== "cowboy-hat" &&
+    props.name !== "gatorade-gamer-cap"
   ) {
     // Replace hardcoded colors with currentColor
     svg = svg

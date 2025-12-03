@@ -114,11 +114,9 @@
     font-family: "Clash Grotesk";
     font-size: 11px;
     font-style: normal;
-    font-weight: 600;
     line-height: 16px;
     /* 145.455% */
     letter-spacing: 0.22px;
-    text-transform: uppercase;
   }
 
   .btn-primary {
@@ -181,5 +179,7 @@
     pointer-events: none;
   }
 
-
+  .pb-safe {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
 }

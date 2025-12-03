@@ -1,19 +1,17 @@
 <template>
   <div
-    class="relative min-h-[316px] -mt-4 w-full flex items-center justify-center"
-    :class="
-      theme === 'light' ? 'bg-custom-color-light' : 'bg-custom-color-dark'
-    "
+    class="relative min-h-[316px] -mt-[50px] py-5 w-full flex items-center justify-center"
     :attr="attr"
   >
-    <div class="py-[52px] container">
+    <ArchedBackground :variant="props.theme" />
+    <div class="py-[52px] container z-0">
       <h2
         class="text-2xl font-bold text-white"
         :class="calculateIsHighlighted() ? 'mb-12' : 'mb-6'"
       >
         {{ title }}
       </h2>
-      <!-- Achievements layout - 4.5 itema u redu -->
+      <!-- Achievements layout  -->
       <div
         v-if="type === 'achievements'"
         class="flex gap-[18px] overflow-x-auto no-scrollbar"
@@ -27,7 +25,6 @@
         />
       </div>
 
-      <!-- Ostali tipovi - 3 kolone grid -->
       <div v-else class="container grid grid-cols-3 gap-[18px] items-end">
         <ItemCard
           v-for="(item, index) in items"
@@ -45,6 +42,7 @@
 import ItemCard from "./ItemCard.vue";
 import { type IconName } from "./Icon.vue";
 import { type Rarity } from "./RarityChip.vue";
+import ArchedBackground from "./ArchedBackground.vue";
 
 export type { Rarity };
 
@@ -54,13 +52,22 @@ export interface Item {
   level: number | string;
   icon: IconName;
   rarity?: Rarity; // Optional for items like chests
+  isNew?: boolean; // Optional flag for NEW badge
+  locked?: boolean; // Optional flag for locked items
+  unlockCost?: number; // Optional cost to unlock locked items
 }
 
 interface Props {
   title?: string;
   items?: Item[];
   theme: "light" | "dark";
-  type: "recent-items" | "eggs" | "challenges" | "achievements" | "chests";
+  type:
+    | "recent-items"
+    | "eggs"
+    | "challenges"
+    | "achievements"
+    | "chests"
+    | "gears";
   attr?: string;
 }
 
@@ -102,16 +109,6 @@ const calculateIsHighlighted = (index?: number): boolean => {
 </script>
 
 <style scoped>
-.bg-custom-color-light {
-  background: url("../assets/images/ellipse-bg-light.svg") no-repeat center
-    center / 100% 100%;
-}
-
-.bg-custom-color-dark {
-  background: url("../assets/images/ellipse-bg-dark.svg") no-repeat center
-    center / 100% 100%;
-}
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

@@ -1,7 +1,5 @@
 <template>
-  <nav
-    class="fixed bottom-0 left-0 right-0 z-[100] p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] mb-10"
-  >
+  <nav class="fixed bottom-0 left-0 right-0 z-[100] p-4 pb-safe mb-10">
     <div
       class="glass-border bg-glass-effect max-w-[600px] h-[58px] mx-auto flex items-center justify-between gap-4 rounded-full bg-white/5 py-1 px-1.5 relative"
     >

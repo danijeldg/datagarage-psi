@@ -50,15 +50,8 @@
           />
         </div>
       </div>
-      <div
-        class="absolute z-10 overflow-visible -bottom-4 left-1/2 -translate-x-1/2 h-[36px] flex items-center gap-2 px-5 py-2 pl-14 rounded-[20px] points-bg"
-      >
-        <Icon
-          name="star"
-          class="w-[43px] h-[43px] absolute left-2 bottom-[4px]"
-          size="43"
-        />
-        <span class="text-subheadline text-white">{{ points }} pts</span>
+      <div class="absolute -bottom-4 left-1/2 -translate-x-1/2">
+        <PointsBadge :points="points" />
       </div>
     </div>
   </header>
@@ -68,7 +61,7 @@
 import CircleLoader from "./CircleLoader.vue";
 import Icon from "./Icon.vue";
 import SvgClipPaths from "./SvgClipPaths.vue";
-import NotificationBadge from "./NotificationBadge.vue";
+import PointsBadge from "./PointsBadge.vue";
 import profileImg from "../assets/images/profile-img.png";
 
 interface Props {
@@ -94,12 +87,6 @@ withDefaults(defineProps<Props>(), {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.points-bg {
-  border-radius: 99px;
-  background: var(--Brand-priority, #837bd9);
-  box-shadow: 0 -1px 2px 0 #400ced inset, 0 1px 4px 0 #c5caf5 inset;
 }
 
 .name-notch-custom-shape {
